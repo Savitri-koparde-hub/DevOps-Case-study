@@ -40,7 +40,7 @@ This project implements a Continuous Integration and Continuous Deployment (CI/C
 
 ---
 
-##  Jenkins Pipeline (Groovy Script)
+## Jenkins Pipeline (Groovy Script)
 
 ```groovy
 pipeline {
@@ -93,7 +93,6 @@ pipeline {
         }
     }
 }
-
 ## Screenshots
 
 ### Jenkins Pipeline
