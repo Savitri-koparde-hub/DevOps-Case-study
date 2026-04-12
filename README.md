@@ -109,23 +109,41 @@ DevOps-Case-study/
 
 ---
 
-## Setup
+---
 
-1. Clone repo
+##  Setup Instructions
 
-```
-git clone https://github.com/Savitri-koparde-hub/DevOps-Case-study.git
-```
-
-2. Run Jenkins pipeline
-3. Verify:
-
-```
-kubectl get pods
-kubectl get svc
-```
+###  Git Configuration
+- Source code is stored in a GitHub repository  
+- Jenkins connects using Git plugin  
+- Poll SCM is used for automatic triggering  
 
 ---
+
+### Jenkins Configuration
+- Create a pipeline job  
+- Add Jenkinsfile  
+- Configure credentials (kubeconfig)  
+- Install required plugins:
+  - Git Plugin  
+  - Docker Plugin  
+  - Kubernetes CLI Plugin  
+
+---
+
+###  Docker Setup
+- Dockerfile defines application environment  
+- Image is built during pipeline execution  
+- Versioning is done using BUILD_NUMBER  
+
+---
+
+###  Kubernetes Setup
+- Deployment and Service YAML files used  
+- Cluster accessed via kubeconfig  
+- Application deployed using:
+```bash
+kubectl apply -f k8s/
 
 ##  Screenshots
 
