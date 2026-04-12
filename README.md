@@ -143,8 +143,9 @@ DevOps-Case-study/
 - Cluster accessed via kubeconfig  
 - Application deployed using:
 ```bash
-kubectl apply -f k8s/
-
+ kubectl apply -f k8s/
+```
+---
 ##  Screenshots
 
 ### Jenkins Pipeline
