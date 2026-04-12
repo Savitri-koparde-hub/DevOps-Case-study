@@ -1,46 +1,43 @@
-# CI/CD Pipeline using Git, Jenkins, Docker, and Kubernetes
+
+#  CI/CD Pipeline using Git, Jenkins, Docker, and Kubernetes
 
 ##  Problem Statement
-
-This project implements a Continuous Integration and Continuous Deployment (CI/CD) pipeline using Git, Jenkins, Docker, and Kubernetes. The pipeline automates the process of building artifacts upon code commits and deploying them to a Kubernetes cluster.
+This project implements a CI/CD pipeline using Git, Jenkins, Docker, and Kubernetes. It automates building and deploying an application whenever code is pushed.
 
 ---
 
 ##  Objectives
-
-- Automate build and deployment process  
-- Reduce manual intervention  
-- Ensure consistency and reliability  
-- Implement scalable and secure CI/CD pipeline  
+- Automate build & deployment  
+- Reduce manual effort  
+- Ensure reliability  
+- Provide scalability  
 
 ---
 
-## Tools & Technologies Used
-
-- Git & GitHub (Version Control)
-- Jenkins (CI/CD Automation)
-- Docker (Containerization)
-- Kubernetes (Container Orchestration)
-- Python (Flask Web Application)
+##  Tools Used
+- Git & GitHub  
+- Jenkins  
+- Docker  
+- Kubernetes  
+- Python (Flask)  
 
 ---
 
 ##  CI/CD Workflow
-- GitHub → Jenkins → Docker Build → Kubernetes Deployment → Service Exposure
+GitHub → Jenkins → Docker → Kubernetes → Application
 
 ---
 
-## Pipeline Explanation
-
-1. Jenkins monitors the GitHub repository using Poll SCM  
-2. On detecting changes, Jenkins automatically triggers the pipeline  
-3. Docker image is built from the application code  
-4. Kubernetes deployment is updated with the new image version  
-5. Application is deployed and accessible via service  
+##  Pipeline Explanation
+1. Jenkins monitors repo (Poll SCM)  
+2. Triggers build on changes  
+3. Builds Docker image  
+4. Deploys to Kubernetes  
+5. App runs with latest version  
 
 ---
 
-## Jenkins Pipeline (Groovy Script)
+##  Jenkins Pipeline (Groovy Script)
 
 ```groovy
 pipeline {
@@ -61,7 +58,6 @@ pipeline {
     }
 
     stages {
-
         stage('Clone Code') {
             steps {
                 git branch: "${params.BRANCH}", url: "${params.REPO_URL}"
@@ -85,24 +81,95 @@ pipeline {
     }
 
     post {
-        success {
-            echo "Deployment Successful"
-        }
-        failure {
-            echo "Pipeline Failed"
-        }
+        success { echo "Deployment Successful" }
+        failure { echo "Pipeline Failed" }
     }
 }
-## Screenshots
+````
+
+---
+
+##  Project Structure
+
+```
+DevOps-Case-study/
+├── Jenkinsfile
+├── Dockerfile
+├── app.py
+├── k8s/
+│   ├── deployment.yaml
+│   └── service.yaml
+├── images/
+│   ├── jenkins.png
+│   ├── docker.png
+│   ├── k8s.png
+│   └── app.png
+└── README.md
+```
+
+---
+
+## Setup
+
+1. Clone repo
+
+```
+git clone https://github.com/Savitri-koparde-hub/DevOps-Case-study.git
+```
+
+2. Run Jenkins pipeline
+3. Verify:
+
+```
+kubectl get pods
+kubectl get svc
+```
+
+---
+
+##  Screenshots
 
 ### Jenkins Pipeline
-![Jenkins Pipeline](images/jenkins.png)
+
+<p align="center">
+  <img src="images/jenkins.png" width="100%">
+</p>
 
 ### Docker Build
-![Docker](images/docker.png)
+
+<p align="center">
+  <img src="images/docker.png" width="100%">
+</p>
 
 ### Kubernetes Deployment
-![Kubernetes](images/k8s.png)
 
-###  Application Output
-![Application](images/app.png)
+<p align="center">
+  <img src="images/k8s.png" width="100%">
+</p>
+
+### Application Output
+
+<p align="center">
+  <img src="images/app.png" width="100%">
+</p>
+
+---
+
+##  Features
+
+* Automated CI/CD
+* Docker containerization
+* Kubernetes deployment
+* Versioning using BUILD_NUMBER
+
+---
+
+##  Security
+
+* Secure Jenkins credentials
+* No hardcoded secrets
+
+---
+
+
+
