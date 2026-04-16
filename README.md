@@ -40,51 +40,38 @@ GitHub → Jenkins → Docker → Kubernetes → Application
 ##  Jenkins Pipeline (Groovy Script)
 
 ```groovy
-pipeline {
-    agent any
-
-    triggers {
-        pollSCM('H/2 * * * *')
-    }
-
-    parameters {
-        string(name: 'REPO_URL', defaultValue: 'https://github.com/Savitri-koparde-hub/DevOps-Case-study.git')
-        string(name: 'BRANCH', defaultValue: 'main')
-    }
-
-    environment {
-        IMAGE_NAME = 'devops-portfolio'
-        IMAGE_TAG = "${BUILD_NUMBER}"
-    }
-
-    stages {
-        stage('Clone Code') {
-            steps {
-                git branch: "${params.BRANCH}", url: "${params.REPO_URL}"
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                bat "docker build -t %IMAGE_NAME%:%IMAGE_TAG% ."
-            }
-        }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                withKubeConfig(credentialsId: 'kubeconfig-file') {
-                    bat "kubectl apply -f k8s/"
-                    bat "kubectl set image deployment/devops-app devops-container=%IMAGE_NAME%:%IMAGE_TAG%"
-                }
-            }
-        }
-    }
-
-    post {
-        success { echo "Deployment Successful" }
-        failure { echo "Pipeline Failed" }
-    }
+ pipeline {
+   agent any
+     triggers {
+         pollSCM('H/2 * * * *')
 }
+     environment {
+         IMAGE_NAME = 'devops-portfolio'
+         IMAGE_TAG = "${BUILD_NUMBER}"
+}
+  stages {
+    stage('Clone Code') {
+     steps {
+         git branch: 'main', url: 'https://github.com/Savitri-koparde-hub/DevOps-Case-study.git'
+}
+}
+   stage('Build Artifact (Docker Image)') {
+     steps {
+        bat "docker build -t %IMAGE_NAME%:%IMAGE_TAG% ."
+}
+}
+   stage('Deploy to Kubernetes') {
+    steps {
+      withKubeConfig(credentialsId: 'kubeconfig-file') {
+      bat "kubectl apply -f k8s/"
+      bat "kubectl set image deployment/devops-app devops-container=%IMAGE_NAME%:%IMAGE_TAG%"
+}
+}
+}
+}
+}
+              
+       
 ````
 
 ---
